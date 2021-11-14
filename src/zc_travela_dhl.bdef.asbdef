@@ -1,0 +1,24 @@
+projection;
+//strict; //Comment this line in to enable strict mode. The strict mode is prerequisite to be future proof regarding syntax and to be able to release your BO.
+
+define behavior for ZC_TRAVELA_DHL alias TravelApproval
+use etag
+{
+//  use create;
+//  use update;
+//  use delete;
+
+  use action acceptTravel external 'Acepta_Viaje';
+  use action rejectTravel;
+  use action createTravelbyTemplate;
+
+//  use association _Booking { create; }
+}
+
+//define behavior for ZC_bookingA_DHL //alias <alias_name>
+//{
+//  use update;
+//  use delete;
+//
+//  use association _Travel;
+//}

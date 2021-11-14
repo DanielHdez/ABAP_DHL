@@ -1,0 +1,14 @@
+@EndUserText.label: 'Servicio Travel'
+define service ZSD_Travel_DHL {
+  expose ZC_travel_DHL as Travel;
+  expose ZC_booking_DHL as Booking;
+  expose ZC_booking_suplement_DHL as BookingSupplement;
+  expose /DMO/I_Supplement as Supplement;
+  expose /DMO/I_SupplementText as SupplementText;
+  expose /DMO/I_Agency as Agency;
+  expose /DMO/I_Carrier as Carrier;
+  expose /DMO/I_Connection as flightConecction;
+  expose /DMO/I_Flight as flight;
+  expose I_Currency as Currency;
+  expose I_Country as Country;
+}

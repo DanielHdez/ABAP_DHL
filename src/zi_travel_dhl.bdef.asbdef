@@ -1,0 +1,129 @@
+managed;
+//manage delega las operaciones CRUD a trabves del framework
+//Unmanage tenedremos que generar nosostros la operaciones CRUD
+//strict; //Comment this line in to enable strict mode. The strict mode is prerequisite to be future proof regarding syntax and to be able to release your BO.
+
+define behavior for ZI_travel_DHL alias Travel
+implementation in class zbp_i_travel_dhl unique
+persistent table ztravel_dhl
+lock master
+authorization master ( instance )
+etag master LastChangedAt
+{
+
+  //Campos administrados
+  field ( readonly ) LastChangedAt, LastChangedBy, CreatedAt, CreatedBy;
+  // Campos  obligatorios
+  field ( mandatory ) AgencyId, OverallStatus, BookingFee, CurrencyCode;
+  //Campos dinámicos de control
+  field ( features : instance ) TravelId; //Esto gnera un método en la clase para controlar esto
+  //Si queremos que el framework asigne un valor
+  //  field (numbering : managed) TravelId; //Para esto es necesario que el campo tenga un tipo determinado por el gframework
+  create;
+  update;
+  delete;
+  //  delete ( authorization : none );
+
+  //Validations
+  validation ValidateCustomer on save { field CustomerId; }
+  validation ValidateDate on save { field BeginDate, EndDate; }
+  validation ValidateStatus on save { field OverallStatus; }
+  //Actions
+
+  action (features : instance) acceptTravel result[1] $self;   //result[a cuantos registros influye] el  $self indica que es para esta instancia
+  action (features : instance) rejectTravel result[1] $self;
+  action createTravelbyTemplate result[1] $self;
+  //static action CreateTravelbyTemplate external 'CreatebyTemplate' result[1] $self;
+  //internal action (features : instance) acceptTravel result[1] $self;  //Es una acción interna
+  association _Booking { create; }
+  mapping for ztravel_dhl
+  {
+    TravelId = travel_id;
+    AgencyId = agency_id;
+    CustomerId = customer_id;
+    BeginDate = begin_date;
+    EndDate = end_date;
+    BookingFee = booking_fee;
+    TotalPrice = total_price;
+    CurrencyCode = currency_code;
+    Description = description;
+    OverallStatus = overall_status;
+    CreatedBy = created_by;
+    CreatedAt = created_at;
+    LastChangedBy = last_changed_by;
+    LastChangedAt = last_changed_at;
+  }
+}
+
+define behavior for ZI_booking_DHL alias Booking
+implementation in class zbp_i_booking_dhl unique
+persistent table zbooking_dhl
+lock dependent by _Travel
+//lock dependent ( TravelId = travel_id )
+authorization dependent by _Travel
+etag master LastChangeAt  //Acceso simultaneo a la base de datos
+{
+
+  mapping for ZBOOKING_DHL
+  {
+    TravelId = travel_id;
+    BookingId = booking_id;
+    BookingDate = booking_date;
+    CustomerId = customer_id;
+    CarrierId = carrier_id;
+    ConnectionId = connection_id;
+    FlightDate = flight_date;
+    FlightPrice = flight_price;
+    CurrencyCode = currency_code;
+    BookingStatus = booking_status;
+    LastChangeAt = last_change_at;
+
+  }
+  //Campos solo lectuta
+//  create;
+  update;
+  delete;
+//  field ( mandatory ) TravelId ;
+  field ( mandatory ) CarrierId, ConnectionId, FlightDate, BookingStatus;
+  field (readonly )  TravelId;
+  association _Travel;
+  association _BookingSuple { create; }
+
+  validation ValidateBookinStatus on save { field BookingStatus; }
+
+  //Determinaciones
+
+  determination CalculateTotalFlightPrice on modify { field FlightPrice, CurrencyCode; }
+
+}
+
+define behavior for ZI_booking_suplement_DHL alias fieldokingSuplement
+implementation in class zbp_i_booking_suplement_dhl unique
+with unmanaged save
+//persistent table ZBOOK_SUPPLY_DHL
+lock dependent by _Travel
+authorization dependent by _Travel
+//authorization dependent ( TravelId = TravelId )
+etag master LastChangeAt   //Acceso simultaneo a la base de datos
+{
+
+  mapping for ZBOOK_SUPPLY_DHL
+  {
+    TravelId = travel_id;
+    BookingId = booking_id;
+    BookingSupplementId = booking_supplement_id;
+    SupplementId = supplement_id;
+    Price = price;
+    Currency = currency;
+    LastChangeAt = last_changed_at;
+  }
+
+  update;
+  delete;
+  field ( readonly ) TravelId, BookingId;
+  field ( mandatory ) SupplementId, Price;
+  association _Travel;
+  association _Booking;
+
+  determination CalculateTotalSupplPrice  on  modify { field Price, Currency; }
+}

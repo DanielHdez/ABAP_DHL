@@ -1,0 +1,35 @@
+projection;
+//strict; //Comment this line in to enable strict mode. The strict mode is prerequisite to be future proof regarding syntax and to be able to release your BO.
+
+define behavior for ZC_travel_DHL alias TravelProcessor
+use etag
+{
+  field (readonly) TotalPrice;
+  use create;
+  use update;
+  use delete;
+
+  use action acceptTravel;
+  use action rejectTravel;
+  use action createTravelbyTemplate;
+
+  use association _Booking { create; }
+}
+
+define behavior for ZC_booking_DHL alias BookingProcessor
+{
+  use update;
+//  use delete;
+
+  use association _Travel;
+  use association _BookingSuple { create; }
+}
+
+define behavior for ZC_booking_suplement_DHL alias SuplementProcessor
+{
+  use update;
+//  use delete;
+
+  use association _Travel;
+  use association _Booking;
+}
