@@ -66,7 +66,7 @@ CLASS lhc_Travel IMPLEMENTATION.
              RESULT DATA(lt_read_Entity_travel)
              FAILED failed
              REPORTED reported.
-
+  """Comentamos
 
 *    result =  VALUE #( FOR <ls_data> IN lt_create_travel INDEX INTO idx
 *          ( %cid_ref = keys[ idx ]-%cid_ref
