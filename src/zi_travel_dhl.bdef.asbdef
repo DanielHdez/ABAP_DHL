@@ -37,6 +37,7 @@ etag master LastChangedAt
   //static action CreateTravelbyTemplate external 'CreatebyTemplate' result[1] $self;
   //internal action (features : instance) acceptTravel result[1] $self;  //Es una acción interna
   association _Booking { create ( features : instance ); }  //Al añadirle la instancia debeo añadirla get features  %assoc-_Booking =  if_abap_behv=>fc-o-enabled
+                                                            //Con  esto podemos definir desde el método get features si se navega o no
   mapping for ztravel_dhl
   {
     TravelId = travel_id;
@@ -95,7 +96,7 @@ etag master LastChangeAt  //Acceso simultaneo a la base de datos
 
   //Determinaciones
 
-  determination CalculateTotalFlightPrice on modify { field FlightPrice, CurrencyCode; }
+  determination CalculateTotalFlightPrice on modify { field FlightPrice, CurrencyCode; } //el framewor llamará al método si existen cambios en FlightPrice o CurrencyCode.
 
 }
 
