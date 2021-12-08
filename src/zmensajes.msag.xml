@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZMENSAJES</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+    <STEXT>Mensajes aplicación</STEXT>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZMENSAJES</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>El cliente &amp; no es válido</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZMENSAJES</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>La fecha de comienzo ( &amp; ) debe ser inferior a la de finalización ( &amp; ).</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZMENSAJES</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>La fecha &amp; debe ser superior a la actual</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZMENSAJES</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>El status del viaje no es valido para el viajes &amp;.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZMENSAJES</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Status &amp; grabado con éxito</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZMENSAJES</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Viaje &amp; grabado con éxito</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZMENSAJES</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Viaje &amp; rechazado</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>ZMENSAJES</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>El status no es valido para la reserva &amp;.</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

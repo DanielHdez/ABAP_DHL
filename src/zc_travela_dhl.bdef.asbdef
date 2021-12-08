@@ -8,7 +8,7 @@ use etag
 //  use update;
 //  use delete;
 
-  use action acceptTravel external 'Acepta_Viaje';
+  use action acceptTravel; // external 'Acepta_Viaje';
   use action rejectTravel;
   use action createTravelbyTemplate;
 

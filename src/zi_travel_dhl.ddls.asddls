@@ -21,8 +21,8 @@ define root view ZI_travel_DHL
       total_price     as TotalPrice,
       @Semantics.currencyCode: true
       currency_code   as CurrencyCode,
-      description     as Description,
       overall_status  as OverallStatus,
+      description     as Description,
       @Semantics.user.createdBy: true
       created_by      as CreatedBy,
       @Semantics.systemDateTime.createdAt: true

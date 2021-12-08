@@ -6,6 +6,7 @@ managed;
 define behavior for ZI_travel_DHL alias Travel
 implementation in class zbp_i_travel_dhl unique
 persistent table ztravel_dhl
+with additional save
 lock master
 authorization master ( instance )
 etag master LastChangedAt
@@ -14,9 +15,9 @@ etag master LastChangedAt
   //Campos administrados
   field ( readonly ) LastChangedAt, LastChangedBy, CreatedAt, CreatedBy;
   // Campos  obligatorios
-  field ( mandatory ) AgencyId, OverallStatus, BookingFee, CurrencyCode;
+  field ( mandatory : create ) TravelId, AgencyId, OverallStatus, BookingFee, CurrencyCode;
   //Campos dinámicos de control
-  field ( features : instance ) TravelId; //Esto gnera un método en la clase para controlar esto
+  field ( features : instance ) TravelId, OverallStatus; //Esto gnera un método en la clase para controlar esto
   //Si queremos que el framework asigne un valor
   //  field (numbering : managed) TravelId; //Para esto es necesario que el campo tenga un tipo determinado por el gframework
   create;
@@ -25,17 +26,17 @@ etag master LastChangedAt
   //  delete ( authorization : none );
 
   //Validations
-  validation ValidateCustomer on save { field CustomerId; }
-  validation ValidateDate on save { field BeginDate, EndDate; }
-  validation ValidateStatus on save { field OverallStatus; }
+  validation ValidateCustomer on save { create; field CustomerId; }
+  validation ValidateDate on save { create; field BeginDate, EndDate; }
+  validation ValidateStatus on save { create; field OverallStatus; }
   //Actions
 
-  action (features : instance) acceptTravel result[1] $self;   //result[a cuantos registros influye] el  $self indica que es para esta instancia
-  action (features : instance) rejectTravel result[1] $self;
-  action createTravelbyTemplate result[1] $self;
+  action ( features : instance ) acceptTravel result [1] $self;   //result[a cuantos registros influye] el  $self indica que es para esta instancia
+  action ( features : instance ) rejectTravel result [1] $self;
+  action createTravelbyTemplate result [1] $self;
   //static action CreateTravelbyTemplate external 'CreatebyTemplate' result[1] $self;
   //internal action (features : instance) acceptTravel result[1] $self;  //Es una acción interna
-  association _Booking { create; }
+  association _Booking { create ( features : instance ); }  //Al añadirle la instancia debeo añadirla get features  %assoc-_Booking =  if_abap_behv=>fc-o-enabled
   mapping for ztravel_dhl
   {
     TravelId = travel_id;
@@ -58,7 +59,8 @@ etag master LastChangedAt
 define behavior for ZI_booking_DHL alias Booking
 implementation in class zbp_i_booking_dhl unique
 persistent table zbooking_dhl
-lock dependent by _Travel
+lock dependent by _Travel      //Para añadir esto desde la entidad ZI_booking_DHL tiene que tener definida la asociación con travel y tenerla proyectada y ademas en la
+//entidad de consumo debe tener  redirected to ZC_travel_DHL a la entidad root de consumo ,
 //lock dependent ( TravelId = travel_id )
 authorization dependent by _Travel
 etag master LastChangeAt  //Acceso simultaneo a la base de datos
@@ -80,16 +82,16 @@ etag master LastChangeAt  //Acceso simultaneo a la base de datos
 
   }
   //Campos solo lectuta
-//  create;
+  //  create;
   update;
   delete;
-//  field ( mandatory ) TravelId ;
-  field ( mandatory ) CarrierId, ConnectionId, FlightDate, BookingStatus;
-  field (readonly )  TravelId;
+  //  field ( mandatory ) TravelId ;
+  field ( mandatory : create ) BookingId, CarrierId, ConnectionId, FlightDate, BookingStatus;
+  field ( readonly ) TravelId;
   association _Travel;
   association _BookingSuple { create; }
 
-  validation ValidateBookinStatus on save { field BookingStatus; }
+  validation ValidateBookinStatus on save { create; field BookingStatus; }
 
   //Determinaciones
 
@@ -97,7 +99,7 @@ etag master LastChangeAt  //Acceso simultaneo a la base de datos
 
 }
 
-define behavior for ZI_booking_suplement_DHL alias fieldokingSuplement
+define behavior for ZI_booking_suplement_DHL alias BookingSuplement
 implementation in class zbp_i_booking_suplement_dhl unique
 with unmanaged save
 //persistent table ZBOOK_SUPPLY_DHL
@@ -121,9 +123,9 @@ etag master LastChangeAt   //Acceso simultaneo a la base de datos
   update;
   delete;
   field ( readonly ) TravelId, BookingId;
-  field ( mandatory ) SupplementId, Price;
-  association _Travel;
-  association _Booking;
+  field ( mandatory : create ) BookingSupplementId, SupplementId, Price;
+  association _Travel { }
+  association _Booking { }
 
-  determination CalculateTotalSupplPrice  on  modify { field Price, Currency; }
+  determination CalculateTotalSupplPrice on modify { field Price, Currency; }
 }
