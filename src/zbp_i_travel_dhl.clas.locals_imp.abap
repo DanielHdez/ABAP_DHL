@@ -193,9 +193,10 @@ CLASS lhc_Travel IMPLEMENTATION.
   ENDMETHOD.
 
   METHOD rejectTravel.
-
+  data tt type abp_behv_cid.
+*keys[ 1 ]-%cid_ref
+*    failed-travel[ 1 ]-% =  if_abap_behv=>t_failinfo
     " Las modificaciones no son relevantes para la autorizaciones locla mode
-
     MODIFY ENTITIES OF ZI_travel_DHL IN LOCAL MODE
     ENTITY Travel
     UPDATE FIELDS (  OverallStatus )

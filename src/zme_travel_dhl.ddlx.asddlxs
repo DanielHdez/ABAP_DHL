@@ -83,6 +83,10 @@ annotate view ZC_travel_DHL with
   label: 'Status [O(Open)|A(Accepted)|X(Canceled)]' }
   ] }
    OverallStatus;
-//   @UI.hidden: true
-//   LastChangedAt;
+   @UI.hidden: true
+   LastChangedAt;
+   @UI: {
+   lineItem: [ { position: 60, importance: #HIGH } ] }
+   @EndUserText.label: 'Discount 10%'
+   Disscount_Price;
 }
