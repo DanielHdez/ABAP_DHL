@@ -11,13 +11,14 @@ ENDCLASS.
 
 
 
-CLASS ZCL_INSERTDATA_DHL IMPLEMENTATION.
+CLASS zcl_insertdata_dhl IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.
     DATA: lt_booksupply TYPE STANDARD TABLE OF zbook_supply_dhl,
           lt_book       TYPE STANDARD TABLE OF zbooking_dhl,
           lt_travel     TYPE STANDARD TABLE OF ztravel_dhl.
+
 
     SELECT travel_id,
 agency_id,
@@ -45,12 +46,27 @@ UP TO 50 ROWS.
     @lt_book.
 
 
-    SELECT * FROM /dmo/book_suppl
+*    SELECT * FROM /dmo/book_suppl
+*    FOR ALL ENTRIES IN @lt_book
+*    WHERE travel_id EQ @lt_book-travel_id
+*    AND booking_id EQ @lt_book-booking_id
+*    INTO CORRESPONDING FIELDS OF TABLE
+*    @lt_booksupply.
+
+
+    SELECT travel_id,
+           booking_id,
+           booking_supplement_id,
+           supplement_id,
+           price,
+           currency_code AS  currency
+    FROM /dmo/book_suppl
     FOR ALL ENTRIES IN @lt_book
     WHERE travel_id EQ @lt_book-travel_id
     AND booking_id EQ @lt_book-booking_id
     INTO CORRESPONDING FIELDS OF TABLE
     @lt_booksupply.
+
 
     DELETE FROM: ztravel_dhl,
     zbooking_dhl,
