@@ -1,0 +1,4 @@
+@EndUserText.label: 'DRAFT'
+define service ZSD_HCM_DRAFT {
+  expose ZCHCM_MASTER_DRAF;
+}

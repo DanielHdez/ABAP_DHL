@@ -1,0 +1,5 @@
+CLASS zbp_ihcm_master_draf DEFINITION PUBLIC ABSTRACT FINAL FOR BEHAVIOR OF zihcm_master_draf.
+ENDCLASS.
+
+CLASS zbp_ihcm_master_draf IMPLEMENTATION.
+ENDCLASS.

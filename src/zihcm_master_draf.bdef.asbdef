@@ -1,0 +1,16 @@
+managed implementation in class zbp_ihcm_master_draf unique;
+with draft;
+
+define behavior for ZIHCM_MASTER_DRAF alias Employee
+persistent table zhcm_master_dra
+draft table zhcm_mast_dra_d
+lock master
+total etag lchg_date_time
+////authorization master ( instance )
+etag master lchg_date_time
+{
+  field ( readonly, numbering : managed ) e_number ;
+  create;
+  update;
+  delete;
+}

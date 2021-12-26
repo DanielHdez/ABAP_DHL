@@ -1,0 +1,81 @@
+@Metadata.layer: #CORE
+@Search.searchable: true  //Habilitamos búsquedas
+@UI: {
+    headerInfo: {
+        typeName: 'Employee',
+        typeNamePlural: 'Employees',
+        typeImageUrl: 'https://www.freepik.es/iconos-gratis/icono-perfil-usuario_750909.htm',
+        title: {
+            type: #STANDARD,
+            label: 'Employees',
+            iconUrl: 'https://cdn-icons-png.flaticon.com/512/24/24956.png',
+            value: 'EmployeeName'
+        }
+}}
+annotate view ZCHCM_MASTER_DRAF with
+{
+
+  @UI.facet: [{ id: 'Employees',
+                purpose : #STANDARD,
+                type: #IDENTIFICATION_REFERENCE,
+                label: 'Employee',
+                position: 10 }]
+  @Search.defaultSearchElement: true
+  @UI: { lineItem: [{ position: 10, label: 'Employee Number' }],
+         identification: [{ position: 10, label: 'Employee Number' }]
+  }
+  EmployeeNumber;
+  @UI: { lineItem: [{ position: 20, label: 'Employee Name', importance: #HIGH }],
+        identification: [{ position: 20, label: 'Employee Name' }],
+        selectionField: [{ position: 10 }]
+  }
+  EmployeeName;
+  @UI: { lineItem: [{ position: 30, label: 'Employee Department', importance: #HIGH }],
+      identification: [{ position: 30, label: 'Employee Department' }],
+        selectionField: [{ position: 20 }]
+  }
+  EmployeeDepartment;
+  @UI: { lineItem: [{ position: 40, label: 'Status', importance: #MEDIUM }],
+    identification: [{ position: 40, label: 'Status' }],
+     selectionField: [{ position: 30 }]
+  }
+  Status;
+  @UI: { lineItem: [{ position: 50, label: 'Job Title', importance: #HIGH }],
+   identification: [{ position: 50, label: 'Job Title' }],
+    selectionField: [{ position: 40 }]
+  }
+  JobTitle;
+  @UI: { lineItem: [{ position: 60, label: 'Start Date', importance: #MEDIUM}],
+  identification: [{ position: 60, label: 'StartDate' }]
+  }
+  StartDate;
+  @UI: { lineItem: [{ position: 70, label: 'End Date', importance: #LOW }],
+  identification: [{ position: 70, label: 'End Date' }]
+  }
+  EndDate;
+  @UI: { lineItem: [{ position: 80, label: 'Email', importance: #LOW }],
+  identification: [{ position: 80, label: 'Email' }]
+  }
+  Email;
+  @UI: { lineItem: [{ position: 90, label: 'Manager Number',importance: #HIGH }],
+  identification: [{ position: 90, label: 'Manager Number' }]
+  }
+  ManagerNumber;
+  @UI: { lineItem: [{ position: 100, label: 'Manager Name', importance: #HIGH}],
+  identification: [{ position:100, label: 'Manager Name' }],
+  selectionField: [{ position: 50 }]}
+  ManagerName;
+  @UI: { lineItem: [{ position: 110, label: 'Manager Department', importance: #MEDIUM }],
+  identification: [{ position:110, label: 'Manager Department' }],
+  selectionField: [{ position: 60 }]}
+  ManagerDepartment;
+  @UI.hidden: true
+  CreaDateTime;
+  @UI.hidden: true
+  CreaUname;
+  @UI.hidden: true
+  ChangeOn;
+  @UI.hidden: true
+  ChangeBy;
+
+}

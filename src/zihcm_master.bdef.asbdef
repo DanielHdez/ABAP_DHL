@@ -1,0 +1,16 @@
+unmanaged implementation in class zbp_ihcm_master unique;
+strict;  //Es un unmanage por lo que nosotros debemos implementarlo todo
+
+define behavior for ZIHCM_MASTER alias HCMMASTER
+//late numbering
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  field( readonly ) e_number;
+  field( mandatory ) e_name;
+
+  create;
+  update;
+  delete;
+}
