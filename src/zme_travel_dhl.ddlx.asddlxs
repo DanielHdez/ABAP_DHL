@@ -12,6 +12,7 @@
  }
 annotate view ZC_travel_DHL with
 {
+//  @UI.facet: [{ id: 'Travel',
   @UI.facet: [{ id: 'Travel',
   purpose: #STANDARD,
   type: #IDENTIFICATION_REFERENCE ,

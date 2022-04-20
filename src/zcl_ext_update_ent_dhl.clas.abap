@@ -11,7 +11,8 @@ ENDCLASS.
 
 
 
-CLASS zcl_ext_update_ent_dhl IMPLEMENTATION.
+CLASS ZCL_EXT_UPDATE_ENT_DHL IMPLEMENTATION.
+
 
   METHOD if_oo_adt_classrun~main.
 
@@ -39,5 +40,4 @@ CLASS zcl_ext_update_ent_dhl IMPLEMENTATION.
 
 
   ENDMETHOD.
-
 ENDCLASS.

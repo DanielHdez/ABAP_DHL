@@ -19,7 +19,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_aux_determinations IMPLEMENTATION.
+CLASS ZCL_AUX_DETERMINATIONS IMPLEMENTATION.
 
 
   METHOD calculate_price.
@@ -134,5 +134,4 @@ CLASS zcl_aux_determinations IMPLEMENTATION.
 
 
   ENDMETHOD.
-
 ENDCLASS.

@@ -11,7 +11,7 @@ ENDCLASS.
 
 
 
-CLASS zcl_insertdata_dhl IMPLEMENTATION.
+CLASS ZCL_INSERTDATA_DHL IMPLEMENTATION.
 
 
   METHOD if_oo_adt_classrun~main.

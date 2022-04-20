@@ -2,6 +2,7 @@
 @AccessControl.authorizationCheck: #CHECK
 @Metadata.allowExtensions: true
 define root view entity ZC_travel_DHL
+provider contract transactional_query
   as projection on ZI_travel_DHL
 {
 
